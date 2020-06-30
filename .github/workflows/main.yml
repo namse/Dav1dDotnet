@@ -21,18 +21,15 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@master
     - uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '3.1.x'
         source-url: https://nuget.pkg.github.com/namse/index.json
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      
-    - name: Dotnet Pack
-      run: dotnet pack --configuration Release
-      working-directory: ${{env.working-directory}}
-      
-    - name: Nuget Push
-      run: dotnet nuget push "bin/Release/*.nupkg"
-      working-directory: ${{env.working-directory}}
+    - run: dotnet build Dav1dDotnet
+    - name: Create the package
+      run: dotnet pack --configuration Release Dav1dDotnet
+    - name: Publish the package to GPR
+      run: dotnet nuget push Dav1dDotnet/bin/Release/*.nupkg
