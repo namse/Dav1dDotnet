@@ -34,5 +34,5 @@ jobs:
       working-directory: ${{env.working-directory}}
       
     - name: Nuget Push
-      run: dotnet nuget push "bin/Release/Dav1dDotnet.1.0.0.nupkg" --source "github"
+      run: dotnet nuget push "bin/Release/Dav1dDotnet.1.0.0.nupkg"
       working-directory: ${{env.working-directory}}
